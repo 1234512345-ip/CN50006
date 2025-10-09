@@ -1,16 +1,16 @@
 
-console.log("Hello");
-console.log("This is my First Programe");
+console.log("Guten Tag");
+console.log("this is my first lab  ");
 
 
-const num1 = 5;
-const num2 = 4;
+const num1 = 15;
+const num2 = 24;
 const sum = num1+ num2;
 console.log('The Sum is '+sum);
 
 const prompt = require('prompt-sync')();
 console.log("Starting");
-const name = prompt('Enter your Name: ');
+const name = prompt('Enter your file name: ');
 console.log (`Hello, ${name}`);
 const number= parseInt(prompt("Enter a number: "));
 if (number > 0) {
