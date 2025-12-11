@@ -1,70 +1,102 @@
-import App from "./App";
-import './App.css'
-import './Calculator.css'
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button.js";
-import {useState} from "react";
+import './Calculator.css';
+import myPicture from './images/Ichchha.jpeg'; 
 
-function KeyPadComponent(props){
-    const [text1, setText ] = useState("")
-    const ClickHandle = (e) => {
-        if (e.target.value=="C")
-        {
-       
-            setText("")    
-        }
-        else if  (e.target.value=="=")
-        {
-        setText(eval(text1))
-        alert(eval(text1))             
-        }
-        else
-        setText(text1+e.target.value)
-      };
+function Calculator() {
+    const [text1, setText] = useState("");
+    const [showImage, setShowImage] = useState(false);
     
-   
-        return (
-            <div className="Calculator">
-                <div className="screen-row">
-                <input type="text" readOnly value= {text1} />
+    const ClickHandle = (e) => {
+        if (e.target.value === "C") {
+            setText("");    
+        } else if (e.target.value === "=") {
+            try {
+                const result = eval(text1);
+                setText(result.toString());
+            } catch (error) {
+                setText("Error");
+            }           
+        } else if (e.target.value === "show me") {
+            setShowImage(!showImage);
+        } else if (e.target.value === "square") {
+            try {
+                const num = parseFloat(text1);
+                if (!isNaN(num)) {
+                    setText((num * num).toString());
+                }
+            } catch (error) {
+                setText("Error");
+            }
+        } else {
+            setText(text1 + e.target.value);
+        }
+    };
+    
+    return (
+        <div className="Calculator">
+            <div className="screen-row">
+                <input type="text" readOnly value={text1} />
+            </div>
+            
+            {showImage && (
+                <div style={{textAlign: 'center', margin: '10px 0'}}>
+                    <img 
+                        src={myPicture} 
+                        alt="My Profile" 
+                        style={{
+                            width: '150px', 
+                            height: '150px', 
+                        
+                            objectFit: 'cover',
+                            border: '3px solid #0997f5'
+                        }}
+                    />
                 </div>
-                
-               
-               <div >
+            )}
+            
+            <div>
                 <Button label="(" ClickHandle={ClickHandle} />
                 <Button label="CE" ClickHandle={ClickHandle} />
                 <Button label=")" ClickHandle={ClickHandle}/>
                 <Button label="C" ClickHandle={ClickHandle}/> 
-                </div>
+            </div>
 
-                <div >
-                <Button label="1"  ClickHandle={ClickHandle}/>
+            <div>
+                <Button label="1" ClickHandle={ClickHandle}/>
                 <Button label="2" ClickHandle={ClickHandle}/>
                 <Button label="3" ClickHandle={ClickHandle}/>
                 <Button label="+" ClickHandle={ClickHandle}/>
-                </div>
-                <div >
+            </div>
+            
+            <div>
                 <Button label="4" ClickHandle={ClickHandle}/>
                 <Button label="5" ClickHandle={ClickHandle}/>
                 <Button label="6" ClickHandle={ClickHandle}/>
                 <Button label="-" ClickHandle={ClickHandle}/>
-                </div>
-                <div >
+            </div>
+            
+            <div>
                 <Button label="7" ClickHandle={ClickHandle}/>
                 <Button label="8" ClickHandle={ClickHandle}/>
                 <Button label="9" ClickHandle={ClickHandle}/>
                 <Button label="*" ClickHandle={ClickHandle}/>
-                </div>
-                <div >
+            </div>
+            
+            <div>
                 <Button label="." ClickHandle={ClickHandle}/>
                 <Button label="0" ClickHandle={ClickHandle}/>
                 <Button label="=" ClickHandle={ClickHandle}/>
                 <Button label="/" ClickHandle={ClickHandle}/>
-                </div>
-                
-                
             </div>
-        );
-    
+            
+            {/* New buttons for Task 2 and 3 */}
+            <div>
+                                <Button label="show me" ClickHandle={ClickHandle}/>
+
+            </div>
+        </div>
+    );
 }
-export default KeyPadComponent;
+
+export default Calculator;
